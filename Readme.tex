@@ -217,8 +217,8 @@ El proyecto está concebido como un plugin monolítico de archivo único para ma
 
 \begin{lstlisting}
 generador_citas/
- ├── citation-generator-wp.php    # Código fuente principal del plugin (Backend + API + UI + JS + CSS)
- └── Readme.md                    # Documentación técnica exhaustiva del sistema
+ |-- citation-generator-wp.php    # Código fuente principal del plugin (Backend + API + UI + JS + CSS)
+ +-- Readme.md                    # Documentación técnica exhaustiva del sistema
 \end{lstlisting}
 
 \subsection{Descripción de Componentes en \texttt{citation-generator-wp.php}:}
@@ -283,7 +283,7 @@ El proyecto evita contaminar el espacio de nombres global en PHP mediante el pre
 \endhead
 \texttt{ABSPATH} & Constante WP & Constante nativa de WordPress utilizada para impedir la ejecución directa del script por HTTP. \\
 \hline
-\texttt{\$cache\_key} & PHP Local (Controller) & Clave única de transient generada dinámicamente: \texttt{'cgwp\_' . md5( $type . '_' . $value )}. \\
+\texttt{\$cache\_key} & PHP Local (Controller) & Clave única de transient generada dinámicamente: \texttt{'cgwp\_' . md5( \$type . '\_' . \$value )}. \\
 \hline
 \texttt{DAY\_IN\_SECONDS} & Constante WP & Define el tiempo de vida (TTL) del transient de memoria caché (86,400 segundos = 24 horas). \\
 \hline
@@ -468,16 +468,16 @@ A continuación se documentan \textbf{todas} las 33 funciones PHP presentes en e
 \item \textbf{Parámetros:} \texttt{\$meta} (Array): Arreglo asociativo de datos sin procesar.
 \item \textbf{Retorno:} Array: Arreglo asociativo sanitizado con \texttt{sanitize\_text\_field} y \texttt{esc\_url\_raw}.
 \end{itemize}
-\subsection{\texttt{cgwp\_t( $key, $lang = 'es' )}}
+\subsection{\texttt{cgwp\_t( \$key, \$lang = 'es' )}}
 \begin{itemize}
 \item \textbf{Propósito:} Helper de internacionalización (i18n) para traducir conectores bibliográficos (\textit{"y"}, \textit{"En"}, \textit{"ed."}, \textit{"s.f."}).
-\item \textbf{Parámetros:} \texttt{$key` (String), `$lang} (String, opcional, default \texttt{'es'}).
+\item \textbf{Parámetros:} \texttt{\$key} (String), \texttt{\$lang} (String, opcional, default \texttt{'es'}).
 \item \textbf{Retorno:} String: Término traducido.
 \end{itemize}
-\subsection{\texttt{cgwp\_get\_full\_author\_name( $author, $format = 'last-first' )}}
+\subsection{\texttt{cgwp\_get\_full\_author\_name( \$author, \$format = 'last-first' )}}
 \begin{itemize}
 \item \textbf{Propósito:} Formatea un objeto de autor individual o corporativo según el estándar solicitado (\texttt{last-first}, \texttt{first-last}, \texttt{last-init}, \texttt{init-last}, \texttt{last-only}).
-\item \textbf{Parámetros:} \texttt{$author` (Array), `$format} (String).
+\item \textbf{Parámetros:} \texttt{\$author} (Array), \texttt{\$format} (String).
 \item \textbf{Retorno:} String: Cadena formateada del nombre de autor.
 \end{itemize}
 \subsection{\texttt{cgwp\_format\_apa6( \$metadata )}}
@@ -674,11 +674,11 @@ El algoritmo recibe la estructura del autor y normaliza los nombres y apellidos:
 
 \begin{enumerate}
 \item \textbf{Evaluación Corporativa:} Si \texttt{\$author['isCorporate'] === true}, devuelve directamente el nombre corporativo sin modificar (ej: \textit{"Universidad Técnica de Machala"}).
-\item \textbf{Concatenación de Nombres:} Junta \texttt{$firstName` y `$middleName} en \texttt{\$full\_first}.
-\item \textbf{Concatenación de Apellidos:} Junta \texttt{$lastName` y `$secondLastName} en \texttt{\$full\_last}.
+\item \textbf{Concatenación de Nombres:} Junta \texttt{\$firstName} y \texttt{\$middleName} en \texttt{\$full\_first}.
+\item \textbf{Concatenación de Apellidos:} Junta \texttt{\$lastName} y \texttt{\$secondLastName} en \texttt{\$full\_last}.
 \item \textbf{Formateo de Iniciales (para estilos como APA / Vancouver):}
 \begin{itemize}
-\item Extrae la primera letra de \texttt{$firstName` usando `mb_substr($first, 0, 1, 'UTF-8')} y le añade un punto.
+\item Extrae la primera letra de \texttt{\$firstName} usando \texttt{mb\_substr(\$first, 0, 1, 'UTF-8')} y le añade un punto.
 \item Si existe \texttt{\$middleName}, realiza la misma operación y une ambas iniciales.
 \end{itemize}
 \item \textbf{Ensamblado:} Retorna según la regla solicitada:
@@ -692,20 +692,20 @@ El algoritmo recibe la estructura del autor y normaliza los nombres y apellidos:
 En APA 7, si una fuente tiene 20 o menos autores, se listan todos. Si tiene 21 o más:
 
 \begin{enumerate}
-\item Contar el arreglo de autores \texttt{$count = count($authors)}.
+\item Contar el arreglo de autores \texttt{\$count = count(\$authors)}.
 \item Si \texttt{\$count <= 20}, se listan todos separados por comas y el último precedido por \texttt{\&} (o \texttt{y}).
 \item Si \texttt{\$count > 20}:
 \begin{itemize}
 \item Se toman los primeros 19 autores: \texttt{array\_slice(\$authors\_list, 0, 19)}.
 \item Se unen con comas.
 \item Se inserta una elipsis espaciada: \texttt{ . . . }.
-\item Se añade únicamente el último autor de la lista (\texttt{$authors_list[$count - 1]}).
+\item Se añade únicamente el último autor de la lista (\texttt{\$authors\_list[\$count - 1]}).
 \end{itemize}
 \end{enumerate}
 \subsection{Algoritmo de Truncamiento para IEEE (7+ Autores)}
 \begin{enumerate}
-\item Contar los autores en la lista \texttt{$count = count($authors)}.
-\item Si \texttt{$count >= 7`, toma únicamente el primer autor formateado (`$authors\_list[0]}) y le concatena la locución latina \texttt{" et al."}.
+\item Contar los autores en la lista \texttt{\$count = count(\$authors)}.
+\item Si \texttt{\$count >= 7}, toma únicamente el primer autor formateado (\texttt{\$authors\_list[0]}) y le concatena la locución latina \texttt{" et al."}.
 \end{enumerate}
 
 \bigskip\noindent\rule{\textwidth}{0.4pt}\bigskip
@@ -726,7 +726,7 @@ En APA 7, si una fuente tiene 20 o menos autores, se listan todos. Si tiene 21 o
 \hline
 \textbf{URL (General)} & Validación nativa de PHP: \texttt{filter\_var(\$url, FILTER\_VALIDATE\_URL)} & Retorna error: \textit{"Enlace URL inválido."} \\
 \hline
-\textbf{URL (Archivos PDF)} & Detección de extensión \texttt{.pdf}: \texttt{preg\_match('/\textbackslash{}.pdf$/i', $url)} & Rechaza el scraping indicando que use DOI o entrada manual. \\
+\textbf{URL (Archivos PDF)} & Detección de extensión \texttt{.pdf}: \texttt{preg\_match('/\textbackslash{}.pdf\$/i', \$url)} & Rechaza el scraping indicando que use DOI o entrada manual. \\
 \hline
 \textbf{Campos Manuales} & Verificación de obligatoriedad en título y año en JS. & Marca los bordes en rojo en el formulario y detiene la petición. \\
 \hline
