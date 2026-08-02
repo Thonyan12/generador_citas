@@ -1,4 +1,4 @@
-# Documentación Técnica: Generador de Citas Bibliográficas Para la Universidad Ténica de Machala
+# Documentación Técnica: Generador de Citas Bibliográficas Para la Universidad Técnica de Machala
 
 ---
 
@@ -74,30 +74,30 @@ El sistema está diseñado bajo una **arquitectura monolítica modular en PHP** 
 ```mermaid
 graph TD
     subgraph Frontend ["Capa de Presentación (Navegador)"]
-        UI["Interfaz Web Shortcode [generador_citas]"]
+        UI["Interfaz Web Shortcode"]
         JS["Lógica de Cliente (Vanilla JS)"]
         UI <--> JS
     end
 
     subgraph Backend ["Backend WordPress (Plugin PHP)"]
-        REST["REST API Controller<br/>(cgwp_handle_generate)"]
-        Cache{"WP Transients Cache<br/>(wp_options)"}
+        REST["REST API Controller"]
+        Cache["WP Transients Cache"]
         
         subgraph Resolvers ["Módulo Resolutores de Metadatos"]
-            DOI["Resolutor DOI<br/>(CrossRef / DataCite)"]
-            ISBN["Resolutor ISBN<br/>(OpenLibrary API)"]
-            ISSN["Resolutor ISSN<br/>(CrossRef Journals)"]
-            URL["Resolutor URL<br/>(HTML OpenGraph Scraper)"]
+            DOI["Resolutor DOI"]
+            ISBN["Resolutor ISBN"]
+            ISSN["Resolutor ISSN"]
+            URL["Resolutor URL HTML Scraper"]
             MAN["Sanitizador Manual"]
         end
         
         subgraph Formatters ["Motor de Formateadores Bibliográficos"]
-            APA["APA 6 / APA 7 (Narrativa/Parentética/IA)"]
-            IEEE["IEEE (Regla 7+ autores)"]
-            VAN["Vancouver (ICMJE / NLM / PMID)"]
-            CHI["Chicago 18 (N&B / Author-Date)"]
-            OTH["Otros (Harvard, MLA, ABNT, CSE, AMA...)"]
-            EXP["Exportadores (BibTeX / RIS)"]
+            APA["APA 6 / APA 7"]
+            IEEE["IEEE"]
+            VAN["Vancouver ICMJE"]
+            CHI["Chicago 18"]
+            OTH["Otros Formatos"]
+            EXP["Exportadores BibTeX / RIS"]
         end
     end
 
@@ -105,23 +105,23 @@ graph TD
         CrossRefAPI["CrossRef REST API"]
         DataCiteAPI["DataCite REST API"]
         OpenLibraryAPI["OpenLibrary Books API"]
-        RemoteWebsites["Sitios Web Remotos (HTML)"]
+        RemoteWebsites["Sitios Web Remotos"]
     end
 
-    JS -->|POST /wp-json/citation-generator/v1/generate| REST
+    JS -->|"POST /wp-json/citation-generator/v1/generate"| REST
     REST --> Cache
-    Cache -->|Miss| Resolvers
-    Cache -->|Hit| Formatters
+    Cache -->|"Miss"| Resolvers
+    Cache -->|"Hit"| Formatters
     
     DOI --> CrossRefAPI
-    DOI -->|Fallback| DataCiteAPI
+    DOI -->|"Fallback"| DataCiteAPI
     ISBN --> OpenLibraryAPI
     ISSN --> CrossRefAPI
     URL --> RemoteWebsites
 
     Resolvers --> Formatters
     Formatters --> REST
-    REST -->|Respuesta JSON con Citas| JS
+    REST -->|"Respuesta JSON con Citas"| JS
 ```
 
 ---
@@ -150,26 +150,26 @@ graph TD
 
 ```mermaid
 flowchart TD
-    A[Inicio: Usuario interactúa con la interfaz] --> B{¿Es búsqueda por Identificador o Manual?}
+    A["Inicio: Usuario interactúa con la interfaz"] --> B{"¿Es búsqueda por Identificador o Manual?"}
     
-    B -->|Identificador DOI/ISBN/ISSN/URL| C[Detección automática por Regex en JS]
-    B -->|Entrada Manual| D[Llenado de formulario dinámico]
+    B -->|"Identificador DOI / ISBN / ISSN / URL"| C["Detección automática por Regex en JS"]
+    B -->|"Entrada Manual"| D["Llenado de formulario dinámico"]
 
-    C --> E[Envío de fetch POST a REST API]
+    C --> E["Envío de fetch POST a REST API"]
     D --> E
 
-    E --> F[cgwp_handle_generate: Sanitización de datos]
-    F --> G{¿Existe en WP Transient?}
+    E --> F["cgwp_handle_generate: Sanitización de datos"]
+    F --> G{"¿Existe en WP Transient?"}
     
-    G -->|Sí (Cache Hit)| K[Normalización de Metadata]
-    G -->|No (Cache Miss)| H{Tipo de Identificador}
+    G -->|"Sí: Hit de Caché"| K["Normalización de Metadata"]
+    G -->|"No: Miss de Caché"| H{"Tipo de Identificador"}
 
-    H -->|DOI| I1[Consulta a CrossRef API]
-    I1 -->|¿Falló?| I1B[Fallback a DataCite API]
-    H -->|ISBN| I2[Consulta a OpenLibrary API]
-    H -->|ISSN| I3[Consulta a CrossRef Journals]
-    H -->|URL| I4[Scraping de HTML / Meta Tags]
-    H -->|Manual| I5[cgwp_sanitize_manual_metadata]
+    H -->|"DOI"| I1["Consulta a CrossRef API"]
+    I1 -->|"¿Falló?"| I1B["Fallback a DataCite API"]
+    H -->|"ISBN"| I2["Consulta a OpenLibrary API"]
+    H -->|"ISSN"| I3["Consulta a CrossRef Journals"]
+    H -->|"URL"| I4["Scraping de HTML / Meta Tags"]
+    H -->|"Manual"| I5["cgwp_sanitize_manual_metadata"]
 
     I1 --> K
     I1B --> K
@@ -178,12 +178,12 @@ flowchart TD
     I4 --> K
     I5 --> K
 
-    K --> L[Guardar Transient en DB por 24h]
-    L --> M[Bucle de Formateadores Bibliográficos]
-    M --> N[Generar APA 7, IEEE, Vancouver, Chicago 18, RIS, BibTeX...]
-    N --> O[Respuesta JSON 200 OK]
-    O --> P[JS actualiza el DOM de resultados]
-    P --> Q[Fin: Usuario copia cita o descarga RIS]
+    K --> L["Guardar Transient en DB por 24h"]
+    L --> M["Bucle de Formateadores Bibliográficos"]
+    M --> N["Generar APA 7, IEEE, Vancouver, Chicago 18, RIS, BibTeX..."]
+    N --> O["Respuesta JSON 200 OK"]
+    O --> P["JS actualiza el DOM de resultados"]
+    P --> Q["Fin: Usuario copia cita o descarga RIS"]
 ```
 
 ---
@@ -556,47 +556,47 @@ El plugin no define clases Orientadas a Objetos (`class`), sino que utiliza el *
 
 ```mermaid
 flowchart TD
-    Start([Inicio: cgwp_resolve_doi]) --> Regex{Validar Regex DOI}
-    Regex -->|Inválido| Err1[Retornar found: false]
-    Regex -->|Válido| ReqCR[wp_remote_get CrossRef API]
+    Start(["Inicio: cgwp_resolve_doi"]) --> Regex{"Validar Regex DOI"}
+    Regex -->|"Inválido"| Err1["Retornar found: false"]
+    Regex -->|"Válido"| ReqCR["wp_remote_get CrossRef API"]
     
-    ReqCR --> StatusCR{HTTP Status 200?}
-    StatusCR -->|Sí| ParseCR[Parsear JSON de CrossRef]
-    StatusCR -->|No| ReqDC[wp_remote_get DataCite API]
+    ReqCR --> StatusCR{"HTTP Status 200?"}
+    StatusCR -->|"Sí"| ParseCR["Parsear JSON de CrossRef"]
+    StatusCR -->|"No"| ReqDC["wp_remote_get DataCite API"]
     
-    ParseCR --> MapCR[Mapear Autores y Metadata]
-    MapCR --> RetCR[Retornar found: true, metadata]
+    ParseCR --> MapCR["Mapear Autores y Metadata"]
+    MapCR --> RetCR["Retornar found: true, metadata"]
     
-    ReqDC --> StatusDC{HTTP Status 200?}
-    StatusDC -->|Sí| ParseDC[Parsear JSON de DataCite]
-    StatusDC -->|No| Err2[Retornar found: false, error: DOI no encontrado]
+    ReqDC --> StatusDC{"HTTP Status 200?"}
+    StatusDC -->|"Sí"| ParseDC["Parsear JSON de DataCite"]
+    StatusDC -->|"No"| Err2["Retornar found: false, error: DOI no encontrado"]
     
-    ParseDC --> MapDC[Mapear Autores y Metadata]
-    MapDC --> RetDC[Retornar found: true, metadata]
+    ParseDC --> MapDC["Mapear Autores y Metadata"]
+    MapDC --> RetDC["Retornar found: true, metadata"]
 ```
 
 ### 2. Módulo Resolutor de URLs (`cgwp_resolve_url`)
 
 ```mermaid
 flowchart TD
-    Start([Inicio: cgwp_resolve_url]) --> CheckURL{¿Es URL Válida?}
-    CheckURL -->|No| Err1[Error: Enlace URL inválido]
-    CheckURL -->|Sí| CheckPDF{¿Termina en .pdf?}
+    Start(["Inicio: cgwp_resolve_url"]) --> CheckURL{"¿Es URL Válida?"}
+    CheckURL -->|"No"| Err1["Error: Enlace URL inválido"]
+    CheckURL -->|"Sí"| CheckPDF{"¿Termina en .pdf?"}
     
-    CheckPDF -->|Sí| Err2[Error: Enlaces a PDF no contienen HTML]
-    CheckPDF -->|No| HTTP[wp_remote_get con User-Agent]
+    CheckPDF -->|"Sí"| Err2["Error: Enlaces a PDF no contienen HTML"]
+    CheckPDF -->|"No"| HTTP["wp_remote_get con User-Agent"]
     
-    HTTP --> CheckHTTP{Status 200 OK?}
-    CheckHTTP -->|No| Err3[Error: No se pudo conectar con el sitio]
-    CheckHTTP -->|Sí| ScrapeHTML[Scraping con Expresiones Regulares]
+    HTTP --> CheckHTTP{"Status 200 OK?"}
+    CheckHTTP -->|"No"| Err3["Error: No se pudo conectar con el sitio"]
+    CheckHTTP -->|"Sí"| ScrapeHTML["Scraping con Expresiones Regulares"]
     
-    ScrapeHTML --> Ex1[Extraer title y og:title]
-    ScrapeHTML --> Ex2[Extraer og:site_name]
-    ScrapeHTML --> Ex3[Extraer meta author]
-    ScrapeHTML --> Ex4[Extraer article:published_time]
+    ScrapeHTML --> Ex1["Extraer title y og:title"]
+    ScrapeHTML --> Ex2["Extraer og:site_name"]
+    ScrapeHTML --> Ex3["Extraer meta author"]
+    ScrapeHTML --> Ex4["Extraer article:published_time"]
     
-    Ex1 & Ex2 & Ex3 & Ex4 --> BuildMeta[Construir Arreglo Metadata]
-    BuildMeta --> RetOK[Retornar found: true, metadata]
+    Ex1 & Ex2 & Ex3 & Ex4 --> BuildMeta["Construir Arreglo Metadata"]
+    BuildMeta --> RetOK["Retornar found: true, metadata"]
 ```
 
 ---
@@ -719,9 +719,9 @@ sequenceDiagram
     JS->>REST: POST /wp-json/citation-generator/v1/generate (JSON Payload)
     REST->>Cache: get_transient('cgwp_MD5HASH')
     
-    alt Cache Hit (Datos en memoria)
+    alt Hit de Caché (Datos en memoria)
         Cache-->>REST: Devuelve Metadata en Caché
-    else Cache Miss (Datos no almacenados)
+    else Miss de Caché (Datos no almacenados)
         REST->>ExtAPI: wp_remote_get(https://api.crossref.org/works/DOI)
         ExtAPI-->>REST: Responde JSON 200 OK con Metadata
         REST->>Cache: set_transient('cgwp_MD5HASH', $metadata, 86400)
