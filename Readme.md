@@ -54,7 +54,7 @@ En el ámbito académico y universitario, la confección manual de citas bibliog
 Proveer a la comunidad universitaria e investigadora de una herramienta web integrada, rápida y precisa para la citación de fuentes académicas y la exportación directa a gestores de referencias bibliográficas (Zotero, Mendeley, EndNote).
 
 ### ¿Para quién fue desarrollado?
-Desarrollado principalmente para estudiantes, docentes e investigadores de la **Universidad Técnica de Machala (UTMACH)**, integrable en cualquier portal WordPress académico.
+Desarrollado principalmente para estudiantes, docentes e investigadores de la **Universidad Técnica de Machala (UTMACH)**, integrable en el portal de la Biblioteca General.
 
 ---
 
