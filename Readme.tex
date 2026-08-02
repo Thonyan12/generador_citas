@@ -1,0 +1,882 @@
+\documentclass[11pt, a4paper]{article}
+
+% === Codificación ===
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+
+% === Idioma ===
+\usepackage[spanish]{babel}
+
+% === Fuente: Times New Roman (11pt) ===
+\usepackage{mathptmx}
+
+% === Márgenes ===
+\usepackage[margin=2.5cm]{geometry}
+
+% === Gráficos ===
+\usepackage{graphicx}
+\usepackage{float}
+
+% === Tablas ===
+\usepackage{longtable}
+\usepackage{array}
+
+% === Enlaces ===
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue!70!black,
+    urlcolor=blue!70!black,
+    citecolor=blue!70!black
+}
+
+% === Bloques de código ===
+\usepackage{listings}
+\usepackage{xcolor}
+
+\lstset{
+    backgroundcolor=\color{gray!8},
+    basicstyle=\ttfamily\footnotesize,
+    breaklines=true,
+    breakatwhitespace=false,
+    frame=single,
+    framesep=6pt,
+    rulecolor=\color{gray!40},
+    numbers=none,
+    tabsize=4,
+    showstringspaces=false,
+    captionpos=b,
+    keywordstyle=\bfseries\color{blue!60!black},
+    stringstyle=\color{red!60!black},
+    commentstyle=\itshape\color{green!40!black},
+    xleftmargin=4pt,
+    xrightmargin=4pt,
+    aboveskip=10pt,
+    belowskip=10pt,
+    literate=
+      {á}{{\'a}}1 {é}{{\'e}}1 {í}{{\'{\i}}}1 {ó}{{\'o}}1 {ú}{{\'u}}1
+      {Á}{{\'A}}1 {É}{{\'E}}1 {Í}{{\'I}}1 {Ó}{{\'O}}1 {Ú}{{\'U}}1
+      {ñ}{{\~n}}1 {Ñ}{{\~N}}1 {ü}{{\"u}}1 {Ü}{{\"U}}1
+      {¿}{{?`}}1 {¡}{{!`}}1
+}
+
+% === Matemáticas ===
+\usepackage{amsmath}
+\usepackage{amssymb}
+
+% === Listas ===
+\usepackage{enumitem}
+\setlist{nosep, leftmargin=*}
+
+% === Interlineado ===
+\usepackage{setspace}
+\onehalfspacing
+
+% === Encabezados de sección ===
+\usepackage{titlesec}
+\titleformat{\section}{\normalfont\Large\bfseries}{\thesection.}{0.5em}{}
+\titleformat{\subsection}{\normalfont\large\bfseries}{\thesubsection.}{0.5em}{}
+\titleformat{\subsubsection}{\normalfont\normalsize\bfseries}{\thesubsubsection.}{0.5em}{}
+
+\title{Documentación Técnica:\\ Generador de Citas Bibliográficas Para la Universidad Técnica de Machala}
+\author{Anthony Lima}
+\date{2 de Agosto de 2026}
+
+\begin{document}
+
+\maketitle
+\tableofcontents
+\newpage
+
+
+
+\bigskip\noindent\rule{\textwidth}{0.4pt}\bigskip
+
+
+
+
+\section{Portada}
+
+\begin{longtable}{|p{8.0cm}|p{8.0cm}|}
+\hline
+\textbf{Parámetro} & \textbf{Detalle} \\
+\hline
+\endhead
+\textbf{Nombre del Proyecto} & Generador de Citas Bibliográficas Profesional (\texttt{citation-generator-wp}) \\
+\hline
+\textbf{Descripción} & Plugin monolítico para WordPress que permite extraer metadatos académicos y generar citas/referencias bibliográficas automáticas en múltiples estándares internacionales (APA 7, IEEE, Vancouver, Chicago 18, etc.) a partir de DOI, ISBN, ISSN, URL o entrada manual. \\
+\hline
+\textbf{Autor} & Anthony Lima \\
+\hline
+\textbf{Institución / Entidad} & Biblioteca de la Universidad Técnica de Machala (UTMACH) \\
+\hline
+\textbf{Sitio Web Institucional} & \href{https://biblioteca.utmachala.edu.ec}{https://biblioteca.utmachala.edu.ec} \\
+\hline
+\textbf{Fecha de Documentación} & 2 de Agosto de 2026 \\
+\hline
+\textbf{Versión del Sistema} & \texttt{1.2.1} \\
+\hline
+\textbf{Licencia} & GPL-2.0-or-later \\
+\hline
+\end{longtable}
+
+
+\bigskip\noindent\rule{\textwidth}{0.4pt}\bigskip
+
+
+\section{Introducción}
+
+\subsection{¿Qué hace el sistema?}
+El \textbf{Generador de Citas Bibliográficas Profesional} es un complemento nativo para WordPress que automatiza la creación de referencias bibliográficas y citas en texto. Permite a los usuarios ingresar identificadores únicos (DOI, ISBN, ISSN o URL de páginas web) o llenar formularios manuales estructurados. El sistema consulta APIs internacionales de metadatos académicos, procesa las reglas estilísticas de más de 15 estándares de citación y genera en tiempo real los bloques de texto formateados y archivos RIS/BibTeX descargables.
+
+
+\subsection{¿Qué problema resuelve?}
+En el ámbito académico y universitario, la confección manual de citas bibliográficas suele generar errores de formato (puntuación, cursivas, orden de autores, elipsis) que afectan la integridad académica de tesis e investigaciones. Además, la recopilación manual de datos desde artículos o libros resulta lenta. Este sistema elimina el margen de error humano aplicando algoritmos de formateo estrictos según las últimas ediciones normativas (ej. APA 7ª ed., Chicago 18ª ed., IEEE, Vancouver ICMJE).
+
+
+\subsection{¿Cuál es su propósito?}
+Proveer a la comunidad universitaria e investigadora de una herramienta web integrada, rápida y precisa para la citación de fuentes académicas y la exportación directa a gestores de referencias bibliográficas (Zotero, Mendeley, EndNote).
+
+
+\subsection{¿Para quién fue desarrollado?}
+Desarrollado principalmente para estudiantes, docentes e investigadores de la \textbf{Universidad Técnica de Machala (UTMACH)}, integrable en el portal de la Biblioteca General.
+
+
+
+\bigskip\noindent\rule{\textwidth}{0.4pt}\bigskip
+
+
+\section{Arquitectura General}
+
+El sistema está diseñado bajo una \textbf{arquitectura monolítica modular en PHP} basada en hooks y la API REST nativa de WordPress (\texttt{WP\_REST\_Request} y \texttt{WP\_REST\_Response}).
+
+
+\subsection{Capas del Sistema:}
+\begin{enumerate}
+\item \textbf{Capa de Presentación (Frontend UI):} Generada mediante un shortcode (\texttt{[generador\_citas]}). Construye la interfaz con componentes HTML, estilos CSS y lógica en JavaScript nativo (vanilla JS) con escucha de eventos en tiempo real.
+\item \textbf{Capa de Controlador / API REST:} Expone un endpoint HTTP POST en \texttt{/wp-json/citation-generator/v1/generate} que intercepta las peticiones, gestiona la sanitización de entrada y coordina los servicios.
+\item \textbf{Capa de Persistencia y Caché:} Utiliza el sistema de \textbf{Transients de WordPress} (\texttt{get\_transient} / \texttt{set\_transient}) para almacenar temporalmente respuestas de APIs externas en la base de datos \texttt{wp\_options}.
+\item \textbf{Capa de Resolutores (Extracción de Datos):} Conjunto de funciones encargadas de consumir servicios web de terceros (CrossRef, DataCite, OpenLibrary, CrossRef Journals) o procesar marcado HTML (OpenGraph / Meta tags).
+\item \textbf{Capa de Formateadores Bibliográficos:} Módulo lógico que aplica las reglas normativas específicas de cada estilo bibliográfico a la estructura de datos normalizada.
+\end{enumerate}
+\subsection{Diagrama de Arquitectura (Mermaid)}
+
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth, keepaspectratio]{diagramas/diagrama_1.png}
+\end{figure}
+
+
+
+\bigskip\noindent\rule{\textwidth}{0.4pt}\bigskip
+
+
+\section{Flujo Completo del Sistema}
+
+\begin{enumerate}
+\item \textbf{Entrada de Usuario:} El usuario accede a la página web donde está insertado el shortcode \texttt{[generador\_citas]}.
+\item \textbf{Ingreso o Detección de Identificador:}
+\begin{itemize}
+\item Si el usuario pega un texto en la caja de búsqueda (ej. un DOI \texttt{10.1016/...} o un enlace \texttt{https://...}), la función JavaScript \texttt{cgwpHandleSearchInput()} analiza el texto mediante expresiones regulares y detecta automáticamente el tipo de fuente.
+\item Alternativamente, el usuario selecciona el tipo de fuente manual (Libro, Revista, Sitio Web, IA Generativa) y llena los campos correspondientes.
+\end{itemize}
+\item \textbf{Petición asíncrona HTTP:} Al presionar "Cargar" o "Generar", JavaScript ejecuta una solicitud \texttt{fetch()} con un payload JSON al endpoint \texttt{/wp-json/citation-generator/v1/generate}.
+\item \textbf{Recepción y Sanitización Backend:} \texttt{cgwp\_handle\_generate()} recibe el payload, aplica \texttt{sanitize\_text\_field()} o \texttt{esc\_url\_raw()} y calcula la clave hash MD5 (\texttt{cgwp\_md5(...)}).
+\item \textbf{Verificación de Caché:} Se consulta si la metadata existe en el transient de WordPress. Si existe, se salta la resolución remota.
+\item \textbf{Resolución de Metadatos:}
+\begin{itemize}
+\item Si es DOI: Consulta a \texttt{api.crossref.org/works/\{doi\}}. Si responde 404/Error, conmuta a \texttt{api.datacite.org/dois/\{doi\}}.
+\item Si es ISBN: Consulta a \texttt{openlibrary.org/api/books}.
+\item Si es ISSN: Consulta a \texttt{api.crossref.org/journals/\{issn\}}.
+\item Si es URL: Realiza un GET HTTP al sitio web y parsea las etiquetas \texttt{<title>}, \texttt{<meta name="author">} y \texttt{og:title}/\texttt{og:site\_name}/\texttt{article:published\_time}.
+\item Si es Manual: Sanitiza el arreglo de metadatos proporcionado directamente por el usuario.
+\end{itemize}
+\item \textbf{Normalización de Estructura:} Se genera un arreglo estandarizado con campos: \texttt{title}, \texttt{authors} (arreglo de nombres estructurados con \texttt{firstName}, \texttt{lastName}, etc.), \texttt{year}, \texttt{publisher}, \texttt{journalName}, \texttt{volume}, \texttt{issue}, \texttt{pages}, \texttt{url}, \texttt{doi}, \texttt{aiVersion}, \texttt{journalAbbrev}, \texttt{pmid}.
+\item \textbf{Ejecución del Motor de Formateo:} El backend itera sobre la lista de 23 formateadores registrados (\texttt{cgwp\_format\_apa7}, \texttt{cgwp\_format\_ieee}, etc.) pasando la metadata estructurada y construye las cadenas HTML/texto de cada cita.
+\item \textbf{Respuesta JSON:} Se devuelve un status HTTP 200 con el objeto conteniendo las citas generadas y la metadata limpia.
+\item \textbf{Renderizado en Frontend:} El cliente JavaScript actualiza las tarjetas de resultados en el DOM, habilita el botón de copiado rápido y prepara el Blob dinámico para la descarga del archivo \texttt{.ris}.
+\end{enumerate}
+\subsection{Diagrama de Flujo del Sistema (Mermaid)}
+
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth, keepaspectratio]{diagramas/diagrama_2.png}
+\end{figure}
+
+
+
+\bigskip\noindent\rule{\textwidth}{0.4pt}\bigskip
+
+
+\section{Estructura del Proyecto}
+
+El proyecto está concebido como un plugin monolítico de archivo único para maximizar la facilidad de instalación en entornos WordPress.
+
+
+\begin{lstlisting}
+generador_citas/
+ ├── citation-generator-wp.php    # Código fuente principal del plugin (Backend + API + UI + JS + CSS)
+ └── Readme.md                    # Documentación técnica exhaustiva del sistema
+\end{lstlisting}
+
+\subsection{Descripción de Componentes en \texttt{citation-generator-wp.php}:}
+\begin{itemize}
+\item \textbf{Líneas 1 - 25:} Encabezado oficial del plugin de WordPress y protección contra acceso directo mediante \texttt{ABSPATH}.
+\item \textbf{Líneas 27 - 154:} \textbf{Módulo 1: API REST.} Registro de rutas HTTP y controlador de solicitudes \texttt{cgwp\_handle\_generate()}.
+\item \textbf{Líneas 155 - 510:} \textbf{Módulo 2: Resolutores de Metadatos.} Integración de APIs de CrossRef, DataCite, OpenLibrary y parser HTML para URLs.
+\item \textbf{Líneas 511 - 584:} \textbf{Módulo 3: Utilidades e Internacionalización.} Helper i18n (\texttt{cgwp\_t}) y formateador de nombres de autor (\texttt{cgwp\_get\_full\_author\_name}).
+\item \textbf{Líneas 585 - 2002:} \textbf{Módulo 4: Motor de Formateadores.} Implementación de 23 funciones independientes para cada estándar de citación.
+\item \textbf{Líneas 2003 - 3179:} \textbf{Módulo 5: Interfaz de Usuario y Shortcode.} Generación de marcado HTML, hojas de estilo CSS inline y scripts de interacción en JavaScript vanilla.
+\end{itemize}
+
+\bigskip\noindent\rule{\textwidth}{0.4pt}\bigskip
+
+
+\section{Dependencias}
+
+\subsection{Dependencias del Entorno Servidor}
+\begin{itemize}
+\item \textbf{PHP 7.4 o superior:} Utiliza funciones avanzadas de manipulación de cadenas de texto multibyte (\texttt{mb\_substr}), JSON y tipos de datos estrictos.
+\item \textbf{WordPress Core (5.0+):} Requiere las APIs nativas de WordPress:
+\begin{itemize}
+\item \texttt{WP\_REST\_Request} / \texttt{WP\_REST\_Response}
+\item \texttt{wp\_remote\_get()} / \texttt{wp\_remote\_retrieve\_body()} / \texttt{wp\_remote\_retrieve\_response\_code()}
+\item \texttt{get\_transient()} / \texttt{set\_transient()}
+\item \texttt{sanitize\_text\_field()} / \texttt{esc\_url\_raw()}
+\item \texttt{add\_action()} / \texttt{add\_shortcode()}
+\end{itemize}
+\end{itemize}
+\subsection{APIs y Servicios Web Externos}
+
+\begin{longtable}{|p{4.0cm}|p{4.0cm}|p{4.0cm}|p{4.0cm}|}
+\hline
+\textbf{Servicio / API} & \textbf{Endpoint Base} & \textbf{Propósito} & \textbf{Ventajas / Razones de uso} \\
+\hline
+\endhead
+\textbf{CrossRef REST API} & \texttt{https://api.crossref.org/works/} & Extracción de metadatos bibliográficos de artículos científicos mediante DOI. & Es el registro primario de DOIs para literatura académica a nivel mundial. \\
+\hline
+\textbf{DataCite REST API} & \texttt{https://api.datacite.org/dois/} & Fallback para resolución de DOIs científicos y de conjuntos de datos. & Permite resolver DOIs que no están registrados en CrossRef. \\
+\hline
+\textbf{OpenLibrary API} & \texttt{https://openlibrary.org/api/books} & Recuperación de metadatos de libros impresos y digitales vía ISBN. & Base de datos libre, gratuita y sin requerimiento de API Key privada. \\
+\hline
+\textbf{CrossRef Journals} & \texttt{https://api.crossref.org/journals/} & Validación de ISSN e identificación de títulos de revistas. & Permite autocompletar el nombre oficial de la revista según su ISSN. \\
+\hline
+\end{longtable}
+
+
+\bigskip\noindent\rule{\textwidth}{0.4pt}\bigskip
+
+
+\section{Variables Globales y Configuración}
+
+El proyecto evita contaminar el espacio de nombres global en PHP mediante el prefijo \texttt{cgwp\_} en todas sus funciones y claves.
+
+
+\subsection{Claves y Configuraciones del Sistema:}
+
+\begin{longtable}{|p{5.3cm}|p{5.3cm}|p{5.3cm}|}
+\hline
+\textbf{Variable / Clave} & \textbf{Ámbito} & \textbf{Descripción} \\
+\hline
+\endhead
+\texttt{ABSPATH} & Constante WP & Constante nativa de WordPress utilizada para impedir la ejecución directa del script por HTTP. \\
+\hline
+\texttt{\$cache\_key} & PHP Local (Controller) & Clave única de transient generada dinámicamente: \texttt{'cgwp\_' . md5( $type . '_' . $value )}. \\
+\hline
+\texttt{DAY\_IN\_SECONDS} & Constante WP & Define el tiempo de vida (TTL) del transient de memoria caché (86,400 segundos = 24 horas). \\
+\hline
+\texttt{CGWP\_CARD\_KEYS} & JavaScript Global & Arreglo JS con las claves de las tarjetas de resultados a actualizar en el DOM: \texttt{['apa7', 'apa7\_narrative', 'ieee', 'vancouver', ...]} \\
+\hline
+\texttt{cgwpAuthorCount} & JavaScript Global & Contador entero utilizado para asignar IDs únicos a las filas dinámicas de autores en el formulario manual. \\
+\hline
+\texttt{cgwpCurrentRis} & JavaScript Global & Variable de estado JS que almacena el contenido en texto plano de la cita en formato \texttt{.ris} lista para descarga. \\
+\hline
+\end{longtable}
+
+
+\bigskip\noindent\rule{\textwidth}{0.4pt}\bigskip
+
+
+\section{Base de Datos y Almacenamiento}
+
+El plugin \textbf{no crea tablas personalizadas} en la base de datos de MySQL/MariaDB, lo que garantiza una instalación y desinstalación limpia sin dejar residuos.
+
+
+\subsection{Uso del Almacenamiento de Transients:}
+Utiliza la tabla estándar \texttt{wp\_options} a través de la API de \textbf{Transients de WordPress}.
+
+
+\begin{itemize}
+\item \textbf{Nombre del campo en \texttt{wp\_options}:} \texttt{\_transient\_cgwp\_\{hash\_md5\}} y \texttt{\_transient\_timeout\_cgwp\_\{hash\_md5\}}.
+\item \textbf{Estructura almacenada:} Arreglo asociativo PHP serializado con los metadatos resueltos.
+\item \textbf{Estrategia de limpieza:} Expiración automática gestionada por el motor de transients de WordPress tras 24 horas (\texttt{DAY\_IN\_SECONDS}).
+\end{itemize}
+\subsection{Diagrama Entidad-Relación de Persistencia (Mermaid ER)}
+
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth, keepaspectratio]{diagramas/diagrama_3.png}
+\end{figure}
+
+
+
+\bigskip\noindent\rule{\textwidth}{0.4pt}\bigskip
+
+
+\section{APIs y Endpoints}
+
+\subsection{Endpoint Principal de Generación}
+
+\subsubsection{\texttt{POST /wp-json/citation-generator/v1/generate}}
+
+\begin{itemize}
+\item \textbf{URL:} \texttt{http://tusitio.com/wp-json/citation-generator/v1/generate}
+\item \textbf{Método HTTP:} \texttt{POST}
+\item \textbf{Permisos:} Público (\texttt{'permission\_callback' => '\_\_return\_true'})
+\item \textbf{Headers requeridos:} \texttt{Content-Type: application/json}
+\end{itemize}
+\subsubsection{Parámetros del Body (JSON):}
+
+\begin{longtable}{|p{4.0cm}|p{4.0cm}|p{4.0cm}|p{4.0cm}|}
+\hline
+\textbf{Campo} & \textbf{Tipo} & \textbf{Requerido} & \textbf{Descripción / Valores permitidos} \\
+\hline
+\endhead
+\texttt{type} & String & Sí & Tipo de consulta: \texttt{'doi'}, \texttt{'isbn'}, \texttt{'issn'}, \texttt{'url'}, \texttt{'manual'}. \\
+\hline
+\texttt{value} & String & Sí (salvo manual) & Cadena con el identificador (ej: \texttt{'10.1016/j.cell.2023.01.001'}). \\
+\hline
+\texttt{lang} & String & No & Idioma de la cita: \texttt{'es'} (predeterminado) o \texttt{'en'}. \\
+\hline
+\texttt{sourceType} & String & No & Tipo de fuente: \texttt{'journal\_article'}, \texttt{'book'}, \texttt{'website'}, \texttt{'ai\_generative'}, etc. \\
+\hline
+\texttt{metadata} & Object & Solo en \texttt{manual} & Objeto JSON con los campos de metadatos ingresados manualmente. \\
+\hline
+\end{longtable}
+
+\subsubsection{Ejemplo de Solicitud (Payload JSON):}
+
+\begin{lstlisting}
+{
+  "type": "doi",
+  "value": "10.1038/s41586-020-2649-2",
+  "lang": "es",
+  "sourceType": "journal_article"
+}
+\end{lstlisting}
+
+\subsubsection{Ejemplo de Respuesta Exitosa (200 OK):}
+
+\begin{lstlisting}
+{
+  "success": true,
+  "citations": {
+    "apa7": "Author, A. (2020). Title of the article. <i>Nature</i>, <i>584</i>(7820), 100-105. https://doi.org/10.1038/s41586-020-2649-2",
+    "apa7_narrative": "Author (2020)",
+    "ieee": "[1] A. Author, \"Title of the article,\" <i>Nature</i>, vol. 584, no. 7820, pp. 100-105, 2020.",
+    "vancouver": "Author A. Title of the article. Nature. 2020;584(7820):100-105.",
+    "ris": "TY  - JOUR\nTI  - Title of the article\nAU  - Author, A.\nPY  - 2020\nJO  - Nature\nVL  - 584\nIS  - 7820\nSP  - 100\nEP  - 105\nUR  - https://doi.org/10.1038/s41586-020-2649-2\nER  - \n"
+  },
+  "metadata": {
+    "authors": [
+      {
+        "firstName": "A.",
+        "middleName": "",
+        "lastName": "Author",
+        "secondLastName": "",
+        "isCorporate": false
+      }
+    ],
+    "title": "Title of the article",
+    "year": "2020",
+    "doi": "10.1038/s41586-020-2649-2",
+    "journalName": "Nature",
+    "volume": "584",
+    "issue": "7820",
+    "pages": "100-105",
+    "url": "https://doi.org/10.1038/s41586-020-2649-2",
+    "lang": "es",
+    "sourceType": "journal_article"
+  }
+}
+\end{lstlisting}
+
+\subsubsection{Respuestas de Error:}
+
+\begin{itemize}
+\item \textbf{HTTP 400 Bad Request:} Identificador no proporcionado.
+\begin{lstlisting}
+  { "success": false, "error": "El identificador es requerido." }
+\end{lstlisting}
+\item \textbf{HTTP 404 Not Found:} Identificador no encontrado en APIs externas.
+\begin{lstlisting}
+  { "success": false, "error": "DOI no encontrado." }
+\end{lstlisting}
+\end{itemize}
+
+\bigskip\noindent\rule{\textwidth}{0.4pt}\bigskip
+
+
+\section{Catálogo Exhaustivo de Funciones}
+
+A continuación se documentan \textbf{todas} las 33 funciones PHP presentes en el archivo \href{file:///c:/Users/antho/Septimo%20Semestre/generador_citas/citation-generator-wp.php}{citation-generator-wp.php}:
+
+
+\subsection{\texttt{cgwp\_register\_routes()}}
+\begin{itemize}
+\item \textbf{Propósito:} Registra las rutas de la REST API en el hook \texttt{rest\_api\_init}.
+\item \textbf{Parámetros:} Ninguno.
+\item \textbf{Retorno:} \texttt{void}.
+\item \textbf{Flujo Interno:} Ejecuta \texttt{register\_rest\_route()} asociando el callback \texttt{cgwp\_handle\_generate}.
+\end{itemize}
+\subsection{\texttt{cgwp\_handle\_generate( WP\_REST\_Request \$request )}}
+\begin{itemize}
+\item \textbf{Propósito:} Controlador principal que recibe las solicitudes REST API, consulta la caché en Transients, delega la búsqueda a los resolutores y llama al motor de formateadores.
+\item \textbf{Parámetros:} \texttt{\$request} (\texttt{WP\_REST\_Request}): Objeto de solicitud REST de WordPress.
+\item \textbf{Retorno:} \texttt{WP\_REST\_Response} (Objeto JSON con código HTTP 200, 400 o 404).
+\end{itemize}
+\subsection{\texttt{cgwp\_resolve\_doi( \$doi )}}
+\begin{itemize}
+\item \textbf{Propósito:} Resuelve un identificador DOI consultando CrossRef API con fallback a DataCite.
+\item \textbf{Parámetros:} \texttt{\$doi} (String): Cadena del DOI.
+\item \textbf{Retorno:} Array \texttt{array('found' => bool, 'metadata' => array, 'error' => string|null)}.
+\end{itemize}
+\subsection{\texttt{cgwp\_resolve\_isbn( \$isbn )}}
+\begin{itemize}
+\item \textbf{Propósito:} Extrae metadatos de un libro mediante la API de OpenLibrary usando el ISBN.
+\item \textbf{Parámetros:} \texttt{\$isbn} (String): Número ISBN (10 o 13 dígitos).
+\item \textbf{Retorno:} Array \texttt{array('found' => bool, 'metadata' => array)}.
+\end{itemize}
+\subsection{\texttt{cgwp\_resolve\_issn( \$issn )}}
+\begin{itemize}
+\item \textbf{Propósito:} Valida un ISSN e identifica el título de la revista y editorial en CrossRef Journals.
+\item \textbf{Parámetros:} \texttt{\$issn} (String): Código ISSN (\texttt{XXXX-XXXX}).
+\item \textbf{Retorno:} Array \texttt{array('found' => bool, 'metadata' => array, 'error' => string|null)}.
+\end{itemize}
+\subsection{\texttt{cgwp\_resolve\_url( \$url )}}
+\begin{itemize}
+\item \textbf{Propósito:} Efectúa web scraping en una página web mediante HTTP GET para extraer meta-etiquetas HTML (OpenGraph / Author / Title). Rechaza enlaces directos a archivos PDF.
+\item \textbf{Parámetros:} \texttt{\$url} (String): Enlace web completo.
+\item \textbf{Retorno:} Array \texttt{array('found' => bool, 'metadata' => array, 'error' => string|null)}.
+\end{itemize}
+\subsection{\texttt{cgwp\_sanitize\_manual\_metadata( \$meta )}}
+\begin{itemize}
+\item \textbf{Propósito:} Sanitiza y limpia el arreglo de metadatos proporcionado manualmente por el usuario.
+\item \textbf{Parámetros:} \texttt{\$meta} (Array): Arreglo asociativo de datos sin procesar.
+\item \textbf{Retorno:} Array: Arreglo asociativo sanitizado con \texttt{sanitize\_text\_field} y \texttt{esc\_url\_raw}.
+\end{itemize}
+\subsection{\texttt{cgwp\_t( $key, $lang = 'es' )}}
+\begin{itemize}
+\item \textbf{Propósito:} Helper de internacionalización (i18n) para traducir conectores bibliográficos (\textit{"y"}, \textit{"En"}, \textit{"ed."}, \textit{"s.f."}).
+\item \textbf{Parámetros:} \texttt{$key` (String), `$lang} (String, opcional, default \texttt{'es'}).
+\item \textbf{Retorno:} String: Término traducido.
+\end{itemize}
+\subsection{\texttt{cgwp\_get\_full\_author\_name( $author, $format = 'last-first' )}}
+\begin{itemize}
+\item \textbf{Propósito:} Formatea un objeto de autor individual o corporativo según el estándar solicitado (\texttt{last-first}, \texttt{first-last}, \texttt{last-init}, \texttt{init-last}, \texttt{last-only}).
+\item \textbf{Parámetros:} \texttt{$author` (Array), `$format} (String).
+\item \textbf{Retorno:} String: Cadena formateada del nombre de autor.
+\end{itemize}
+\subsection{\texttt{cgwp\_format\_apa6( \$metadata )}}
+\begin{itemize}
+\item \textbf{Propósito:} Genera la cita completa en formato APA 6ª Edición.
+\item \textbf{Parámetros:} \texttt{\$metadata} (Array).
+\item \textbf{Retorno:} String (HTML con cursivas).
+\end{itemize}
+\subsection{\texttt{cgwp\_format\_apa7( \$metadata )}}
+\begin{itemize}
+\item \textbf{Propósito:} Genera la referencia bibliográfica completa en formato APA 7ª Edición (aplica elipsis \texttt{. . .} para 21+ autores y soporte para IA Generativa).
+\item \textbf{Parámetros:} \texttt{\$metadata} (Array).
+\item \textbf{Retorno:} String (HTML).
+\end{itemize}
+\subsection{\texttt{cgwp\_format\_apa7\_narrative( \$metadata )}}
+\begin{itemize}
+\item \textbf{Propósito:} Genera la cita narrativa en texto en formato APA 7 (\texttt{Autor (Año)}).
+\item \textbf{Parámetros:} \texttt{\$metadata} (Array).
+\item \textbf{Retorno:} String.
+\end{itemize}
+\subsection{\texttt{cgwp\_format\_apa7\_parenthetical( \$metadata )}}
+\begin{itemize}
+\item \textbf{Propósito:} Genera la cita parentética en texto en formato APA 7 (\texttt{(Autor, Año)}).
+\item \textbf{Parámetros:} \texttt{\$metadata} (Array).
+\item \textbf{Retorno:} String.
+\end{itemize}
+\subsection{\texttt{cgwp\_format\_harvard( \$metadata )}}
+\begin{itemize}
+\item \textbf{Propósito:} Genera la cita bibliográfica en estilo Harvard.
+\item \textbf{Parámetros:} \texttt{\$metadata} (Array).
+\item \textbf{Retorno:} String (HTML).
+\end{itemize}
+\subsection{\texttt{cgwp\_format\_chicago( \$metadata )}}
+\begin{itemize}
+\item \textbf{Propósito:} Alias de compatibilidad que invoca a \texttt{cgwp\_format\_chicago\_bibliography}.
+\item \textbf{Parámetros:} \texttt{\$metadata} (Array).
+\item \textbf{Retorno:} String (HTML).
+\end{itemize}
+\subsection{\texttt{cgwp\_format\_chicago\_bibliography( \$metadata )}}
+\begin{itemize}
+\item \textbf{Propósito:} Genera la entrada bibliográfica del sistema Chicago 18ª ed. (Notes \& Bibliography).
+\item \textbf{Parámetros:} \texttt{\$metadata} (Array).
+\item \textbf{Retorno:} String (HTML).
+\end{itemize}
+\subsection{\texttt{cgwp\_format\_chicago\_note\_full( \$metadata )}}
+\begin{itemize}
+\item \textbf{Propósito:} Genera la nota a pie de página completa en Chicago 18ª ed. (Notes \& Bibliography).
+\item \textbf{Parámetros:} \texttt{\$metadata} (Array).
+\item \textbf{Retorno:} String (HTML).
+\end{itemize}
+\subsection{\texttt{cgwp\_format\_chicago\_note\_short( \$metadata )}}
+\begin{itemize}
+\item \textbf{Propósito:} Genera la nota a pie de página abreviada en Chicago 18ª ed.
+\item \textbf{Parámetros:} \texttt{\$metadata} (Array).
+\item \textbf{Retorno:} String.
+\end{itemize}
+\subsection{\texttt{cgwp\_format\_chicago\_authordate\_intext( \$metadata )}}
+\begin{itemize}
+\item \textbf{Propósito:} Genera la cita en texto del sistema Chicago 18ª ed. (Author-Date).
+\item \textbf{Parámetros:} \texttt{\$metadata} (Array).
+\item \textbf{Retorno:} String.
+\end{itemize}
+\subsection{\texttt{cgwp\_format\_chicago\_authordate\_reference( \$metadata )}}
+\begin{itemize}
+\item \textbf{Propósito:} Genera la referencia bibliográfica del sistema Chicago 18ª ed. (Author-Date).
+\item \textbf{Parámetros:} \texttt{\$metadata} (Array).
+\item \textbf{Retorno:} String (HTML).
+\end{itemize}
+\subsection{\texttt{cgwp\_format\_turabian( \$metadata )}}
+\begin{itemize}
+\item \textbf{Propósito:} Genera la cita bibliográfica en estilo Turabian.
+\item \textbf{Parámetros:} \texttt{\$metadata} (Array).
+\item \textbf{Retorno:} String (HTML).
+\end{itemize}
+\subsection{\texttt{cgwp\_format\_ieee( \$metadata )}}
+\begin{itemize}
+\item \textbf{Propósito:} Genera la cita bibliográfica en estilo IEEE (aplica truncamiento \textit{"Primero et al."} para 7+ autores).
+\item \textbf{Parámetros:} \texttt{\$metadata} (Array).
+\item \textbf{Retorno:} String (HTML).
+\end{itemize}
+\subsection{\texttt{cgwp\_format\_vancouver( \$metadata )}}
+\begin{itemize}
+\item \textbf{Propósito:} Genera la cita en formato Vancouver (con normas ICMJE, abreviatura NLM y PMID).
+\item \textbf{Parámetros:} \texttt{\$metadata} (Array).
+\item \textbf{Retorno:} String.
+\end{itemize}
+\subsection{\texttt{cgwp\_format\_abnt( \$metadata )}}
+\begin{itemize}
+\item \textbf{Propósito:} Genera la cita en formato ABNT (Asociação Brasileira de Normas Técnicas).
+\item \textbf{Parámetros:} \texttt{\$metadata} (Array).
+\item \textbf{Retorno:} String (HTML).
+\end{itemize}
+\subsection{\texttt{cgwp\_format\_cse( \$metadata )}}
+\begin{itemize}
+\item \textbf{Propósito:} Genera la cita en formato CSE (Council of Science Editors).
+\item \textbf{Parámetros:} \texttt{\$metadata} (Array).
+\item \textbf{Retorno:} String (HTML).
+\end{itemize}
+\subsection{\texttt{cgwp\_format\_asa( \$metadata )}}
+\begin{itemize}
+\item \textbf{Propósito:} Genera la cita en formato ASA (American Sociological Association).
+\item \textbf{Parámetros:} \texttt{\$metadata} (Array).
+\item \textbf{Retorno:} String (HTML).
+\end{itemize}
+\subsection{\texttt{cgwp\_format\_apsa( \$metadata )}}
+\begin{itemize}
+\item \textbf{Propósito:} Genera la cita en formato APSA (American Political Science Association).
+\item \textbf{Parámetros:} \texttt{\$metadata} (Array).
+\item \textbf{Retorno:} String (HTML).
+\end{itemize}
+\subsection{\texttt{cgwp\_format\_aaa( \$metadata )}}
+\begin{itemize}
+\item \textbf{Propósito:} Genera la cita en formato AAA (American Anthropological Association).
+\item \textbf{Parámetros:} \texttt{\$metadata} (Array).
+\item \textbf{Retorno:} String (HTML).
+\end{itemize}
+\subsection{\texttt{cgwp\_format\_ama( \$metadata )}}
+\begin{itemize}
+\item \textbf{Propósito:} Genera la cita en formato AMA (American Medical Association).
+\item \textbf{Parámetros:} \texttt{\$metadata} (Array).
+\item \textbf{Retorno:} String (HTML).
+\end{itemize}
+\subsection{\texttt{cgwp\_format\_mla( \$metadata )}}
+\begin{itemize}
+\item \textbf{Propósito:} Genera la cita en formato MLA (Modern Language Association).
+\item \textbf{Parámetros:} \texttt{\$metadata} (Array).
+\item \textbf{Retorno:} String (HTML).
+\end{itemize}
+\subsection{\texttt{cgwp\_format\_bibtex( \$metadata )}}
+\begin{itemize}
+\item \textbf{Propósito:} Genera la representación en formato de sintaxis BibTeX (\texttt{@article}, \texttt{@book}, \texttt{@misc}).
+\item \textbf{Parámetros:} \texttt{\$metadata} (Array).
+\item \textbf{Retorno:} String (Texto plano formateado).
+\end{itemize}
+\subsection{\texttt{cgwp\_format\_ris( \$metadata )}}
+\begin{itemize}
+\item \textbf{Propósito:} Genera la estructura de datos en formato de intercambio RIS (\texttt{TY  - JOUR}, \texttt{AU  - ...}, \texttt{ER  - }).
+\item \textbf{Parámetros:} \texttt{\$metadata} (Array).
+\item \textbf{Retorno:} String (Texto plano para archivo \texttt{.ris}).
+\end{itemize}
+\subsection{\texttt{cgwp\_render\_generator\_shortcode()}}
+\begin{itemize}
+\item \textbf{Propósito:} Función ligada al shortcode \texttt{[generador\_citas]}. Renderiza el buffer HTML, CSS y la lógica interactiva JavaScript.
+\item \textbf{Parámetros:} Ninguno.
+\item \textbf{Retorno:} String: Buffer HTML procesado mediante \texttt{ob\_get\_clean()}.
+\end{itemize}
+
+\bigskip\noindent\rule{\textwidth}{0.4pt}\bigskip
+
+
+\section{Clases y Paradigma de Programación}
+
+El plugin no define clases Orientadas a Objetos (\texttt{class}), sino que utiliza el \textbf{paradigma funcional/procedural guiado por hooks}, que es el estándar histórico y recomendado para plugins ligeros monolíticos en el ecosistema WordPress.
+
+
+\subsection{Características del Paradigma Utilizado:}
+\begin{itemize}
+\item \textbf{Aislamiento por Prefijos:} Todas las funciones globales utilizan el prefijo \texttt{cgwp\_} para evitar colisiones en el espacio de nombres de PHP.
+\item \textbf{Inmutable Data Flow:} Las funciones de formateo son \textbf{funciones puras}: reciben una estructura de datos \texttt{\$metadata} y devuelven una cadena de texto sin modificar el estado global del servidor.
+\end{itemize}
+
+\bigskip\noindent\rule{\textwidth}{0.4pt}\bigskip
+
+
+\section{Flujo Interno por Módulo}
+
+\subsection{Módulo Resolutor DOI (\texttt{cgwp\_resolve\_doi})}
+
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth, keepaspectratio]{diagramas/diagrama_4.png}
+\end{figure}
+
+
+\subsection{Módulo Resolutor de URLs (\texttt{cgwp\_resolve\_url})}
+
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth, keepaspectratio]{diagramas/diagrama_5.png}
+\end{figure}
+
+
+
+\bigskip\noindent\rule{\textwidth}{0.4pt}\bigskip
+
+
+\section{Algoritmos Relevantes}
+
+\subsection{Algoritmo de Parseo de Nombres de Autor (\texttt{cgwp\_get\_full\_author\_name})}
+El algoritmo recibe la estructura del autor y normaliza los nombres y apellidos:
+
+
+\begin{enumerate}
+\item \textbf{Evaluación Corporativa:} Si \texttt{\$author['isCorporate'] === true}, devuelve directamente el nombre corporativo sin modificar (ej: \textit{"Universidad Técnica de Machala"}).
+\item \textbf{Concatenación de Nombres:} Junta \texttt{$firstName` y `$middleName} en \texttt{\$full\_first}.
+\item \textbf{Concatenación de Apellidos:} Junta \texttt{$lastName` y `$secondLastName} en \texttt{\$full\_last}.
+\item \textbf{Formateo de Iniciales (para estilos como APA / Vancouver):}
+\begin{itemize}
+\item Extrae la primera letra de \texttt{$firstName` usando `mb_substr($first, 0, 1, 'UTF-8')} y le añade un punto.
+\item Si existe \texttt{\$middleName}, realiza la misma operación y une ambas iniciales.
+\end{itemize}
+\item \textbf{Ensamblado:} Retorna según la regla solicitada:
+\begin{itemize}
+\item \texttt{'last-first'} $\rightarrow$ \texttt{"García López, Juan Carlos"}
+\item \texttt{'last-init'} $\rightarrow$ \texttt{"García López, J. C."}
+\item \texttt{'init-last'} $\rightarrow$ \texttt{"J. C. García López"}
+\end{itemize}
+\end{enumerate}
+\subsection{Algoritmo de Elipsis para APA 7ª Edición (21+ Autores)}
+En APA 7, si una fuente tiene 20 o menos autores, se listan todos. Si tiene 21 o más:
+
+\begin{enumerate}
+\item Contar el arreglo de autores \texttt{$count = count($authors)}.
+\item Si \texttt{\$count <= 20}, se listan todos separados por comas y el último precedido por \texttt{\&} (o \texttt{y}).
+\item Si \texttt{\$count > 20}:
+\begin{itemize}
+\item Se toman los primeros 19 autores: \texttt{array\_slice(\$authors\_list, 0, 19)}.
+\item Se unen con comas.
+\item Se inserta una elipsis espaciada: \texttt{ . . . }.
+\item Se añade únicamente el último autor de la lista (\texttt{$authors_list[$count - 1]}).
+\end{itemize}
+\end{enumerate}
+\subsection{Algoritmo de Truncamiento para IEEE (7+ Autores)}
+\begin{enumerate}
+\item Contar los autores en la lista \texttt{$count = count($authors)}.
+\item Si \texttt{$count >= 7`, toma únicamente el primer autor formateado (`$authors\_list[0]}) y le concatena la locución latina \texttt{" et al."}.
+\end{enumerate}
+
+\bigskip\noindent\rule{\textwidth}{0.4pt}\bigskip
+
+
+\section{Validaciones del Sistema}
+
+\begin{longtable}{|p{5.3cm}|p{5.3cm}|p{5.3cm}|}
+\hline
+\textbf{Tipo de Entrada} & \textbf{Regla / Validación aplicada} & \textbf{Acción si falla} \\
+\hline
+\endhead
+\textbf{DOI} & Regex: \texttt{/(10\textbackslash{}.\textbackslash{}d\{4,9\}\textbackslash{}/[-.\_;()\textbackslash{}/:\textbackslash{}w]+)/} & Retorna error HTTP 404: \textit{"Formato de DOI inválido."} \\
+\hline
+\textbf{ISBN} & Limpieza de caracteres no alfanuméricos: \texttt{preg\_replace('/[\textasciicircum{}0-9X]/i', '', \$isbn)} & Retorna error HTTP 404: \textit{"ISBN no encontrado."} \\
+\hline
+\textbf{ISSN} & Formateo estricto a 8 caracteres numéricos con guion central: \texttt{\textasciicircum{}\textbackslash{}d\{4\}-\textbackslash{}d\{3\}[\textbackslash{}dXx]\$} & Retorna error: \textit{"El formato del ISSN debe ser XXXX-XXXX."} \\
+\hline
+\textbf{URL (General)} & Validación nativa de PHP: \texttt{filter\_var(\$url, FILTER\_VALIDATE\_URL)} & Retorna error: \textit{"Enlace URL inválido."} \\
+\hline
+\textbf{URL (Archivos PDF)} & Detección de extensión \texttt{.pdf}: \texttt{preg\_match('/\textbackslash{}.pdf$/i', $url)} & Rechaza el scraping indicando que use DOI o entrada manual. \\
+\hline
+\textbf{Campos Manuales} & Verificación de obligatoriedad en título y año en JS. & Marca los bordes en rojo en el formulario y detiene la petición. \\
+\hline
+\textbf{IA Generativa} & Validación de autoría corporativa obligatoria (Compañía desarrolladora). & Exige el nombre de la compañía (ej: OpenAI). \\
+\hline
+\end{longtable}
+
+
+\bigskip\noindent\rule{\textwidth}{0.4pt}\bigskip
+
+
+\section{Manejo de Errores y Excepciones}
+
+El sistema utiliza un enfoque de \textbf{respuestas de error controladas} evitando que el servidor lance excepciones sin capturar (\textit{fatal errors}).
+
+
+\subsection{Estrategias de Manejo:}
+\begin{enumerate}
+\item \textbf{Control de Errores HTTP en \texttt{wp\_remote\_get}:}
+\begin{lstlisting}[language=PHP]
+   if ( is_wp_error( $response ) || wp_remote_retrieve_response_code( $response ) !== 200 ) {
+       return array( 'found' => false, 'error' => 'No se pudo conectar con el servicio externo.' );
+   }
+\end{lstlisting}
+\item \textbf{Códigos de Estado REST API:}
+\begin{itemize}
+\item \texttt{400 Bad Request}: Cuando faltan parámetros obligatorios.
+\item \texttt{404 Not Found}: Cuando una API externa no encuentra el identificador o el servidor destino bloquea la consulta.
+\end{itemize}
+\item \textbf{Manejo de Timeout:} Todas las peticiones salientes a APIs externas tienen un límite de tiempo estricto de \textbf{8 segundos} (\texttt{'timeout' => 8}) para evitar el bloqueo del hilo de ejecución de PHP.
+\end{enumerate}
+
+\bigskip\noindent\rule{\textwidth}{0.4pt}\bigskip
+
+
+\section{Auditoría de Seguridad}
+
+\subsection{Fortalezas de Seguridad Implementadas:}
+\begin{itemize}
+\item \textbf{Protección contra ejecución directa:}
+\begin{lstlisting}[language=PHP]
+  if ( ! defined( 'ABSPATH' ) ) { exit; }
+\end{lstlisting}
+\item \textbf{Sanitización de entradas:}
+\begin{itemize}
+\item Uso sistemático de \texttt{sanitize\_text\_field()} en todas las cadenas recibidas por la API REST.
+\item Uso de \texttt{esc\_url\_raw()} para enlaces URL.
+\end{itemize}
+\item \textbf{Prevención de XSS:} Salida limpia en las respuestas JSON y renderizado seguro en JS mediante asignación a \texttt{innerText} o \texttt{textContent} en las cajas de texto de citas.
+\item \textbf{Inyección SQL:} Imposible de realizar a través del plugin, ya que \textbf{no realiza consultas SQL directas} ni interactúa con \texttt{\$wpdb}.
+\end{itemize}
+\subsection{Debilidades y Puntos de Atención:}
+\begin{itemize}
+\item \textbf{Permiso Abierto en REST API:}
+\begin{lstlisting}[language=PHP]
+  'permission_callback' => '__return_true'
+\end{lstlisting}
+\begin{itemize}
+\item \textbf{Análisis:} El endpoint es 100\% público. Cualquier cliente o bot externo puede enviar peticiones POST al servidor.
+\item \textbf{Riesgo:} Posible ataque de denegación de servicio (DoS) o consumo excesivo del ancho de banda del servidor por peticiones maliciosas en bucle a sitios externos.
+\end{itemize}
+\end{itemize}
+
+\bigskip\noindent\rule{\textwidth}{0.4pt}\bigskip
+
+
+\section{Análisis de Rendimiento}
+
+\subsection{Complejidad Algorítmica}
+\begin{itemize}
+\item \textbf{Procesamiento de Citas:} Complejidad temporal $\mathcal{O}(N)$ donde $N$ es el número de autores. Dado que $N \le 100$ en la inmensa mayoría de publicaciones, el tiempo de ejecución de las 23 funciones de formateo en memoria PHP es despreciable ($< 5\text{ ms}$).
+\item \textbf{Peticiones HTTP Externas:} Es el principal cuello de botella (latencia de red entre 200ms y 1500ms al consultar CrossRef/OpenLibrary).
+\end{itemize}
+\subsection{Estrategia de Optimización (Transients Cache)}
+El plugin mitiga el cuello de botella de red mediante el sistema de Transients:
+
+\begin{itemize}
+\item La primera consulta a un DOI (ej: \texttt{10.1038/...}) tarda \textasciitilde{}800ms en resolver desde CrossRef.
+\item Las siguientes consultas al mismo DOI responden en \textbf{< 15ms} al leer los datos directamente desde la memoria caché de WordPress (\texttt{wp\_options}).
+\end{itemize}
+
+\bigskip\noindent\rule{\textwidth}{0.4pt}\bigskip
+
+
+\section{Diagrama de Secuencia}
+
+El siguiente diagrama ilustra la secuencia completa de interacciones entre los componentes:
+
+
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth, keepaspectratio]{diagramas/diagrama_6.png}
+\end{figure}
+
+
+
+\bigskip\noindent\rule{\textwidth}{0.4pt}\bigskip
+
+
+\section{Resumen del Flujo Completo}
+
+Desde una perspectiva funcional:
+
+\begin{enumerate}
+\item El estudiante o investigador ingresa a la plataforma web de la Biblioteca UTMACH.
+\item Introduce un identificador (DOI, ISBN, ISSN o URL) en el generador.
+\item El sistema reconoce automáticamente el tipo de fuente y consulta las bases de datos bibliográficas internacionales.
+\item Los datos son parseados y transformados instantáneamente a más de 15 estándares de citación académica oficial.
+\item El usuario puede filtrar por disciplina (General, Medicina, Técnico, Historia) y copiar la cita deseada con un solo clic o descargar la referencia completa en formato \texttt{.ris} para importarla en su gestor bibliográfico personal.
+\end{enumerate}
+
+\bigskip\noindent\rule{\textwidth}{0.4pt}\bigskip
+
+
+\section{Auditoría y Posibles Mejoras}
+
+Como resultado del análisis técnico del código fuente, se sugieren las siguientes mejoras para versiones futuras (\texttt{v2.0}):
+
+
+\subsection{Arquitectura y Mantenibilidad}
+\begin{itemize}
+\item \textbf{Modularización de archivos:} Dividir el archivo monolítico \texttt{citation-generator-wp.php} en una estructura limpia de clases PHP en una carpeta \texttt{/includes}:
+\begin{itemize}
+\item \texttt{includes/class-cgwp-rest-api.php}
+\item \texttt{includes/class-cgwp-resolver-doi.php}
+\item \texttt{includes/class-cgwp-formatter.php}
+\end{itemize}
+\item \textbf{Inyección de Scripts y CSS Nativa:} En lugar de imprimir el bloque \texttt{<style>} y \texttt{<script>} dentro del shortcode, cargarlos mediante las funciones estándar \texttt{wp\_enqueue\_script()} y \texttt{wp\_enqueue\_style()}.
+\end{itemize}
+\subsection{Seguridad y Rate Limiting}
+\begin{itemize}
+\item \textbf{Verificación de Nonce:} Implementar un token CSRF (WordPress Nonce) en la API REST utilizando \texttt{wp\_create\_nonce('cgwp\_rest\_nonce')} para asegurar que las peticiones provengan exclusivamente del formulario web de la universidad.
+\item \textbf{Control de Frecuencia (Rate Limiting):} Limitar a un máximo de 30 peticiones por minuto por dirección IP para evitar abusos o denegaciones de servicio.
+\end{itemize}
+\subsection{Dinamismo de URLs REST API}
+\begin{itemize}
+\item Sustituir la ruta estática \texttt{/wp-json/...} en el script de JavaScript por la llamada dinámica en PHP \texttt{esc\_url\_raw( rest\_url( 'citation-generator/v1/generate' ) )} para garantizar una compatibilidad del 100\% en sitios de WordPress instalados en subdirectorios o carpetas secundarias.
+\end{itemize}
+
+\bigskip\noindent\rule{\textwidth}{0.4pt}\bigskip
+
+
+\section{Conclusiones}
+
+El \textbf{Generador de Citas Bibliográficas Profesional (v1.2.1)} es una solución técnica sólida, eficiente y rigurosa para la automatización de la citación académica en plataformas WordPress. Su motor de formateo cumple de forma estricta con las últimas especificaciones normativas internacionales (APA 7, IEEE, Vancouver ICMJE, Chicago 18), mientras que su integración con APIs como CrossRef y OpenLibrary ofrece una experiencia de usuario rápida y libre de errores de tipeo.
+
+
+La implementación del almacenamiento en caché mediante WP Transients minimiza la latencia de red y protege los límites de tasa de las APIs externas. Al aplicar las mejoras sugeridas de modularización y verificación mediante Nonces, el sistema alcanzará un nivel óptimo de escalabilidad, seguridad y mantenibilidad a nivel empresarial.
+
+
+
+\end{document}
