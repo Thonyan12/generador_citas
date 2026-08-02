@@ -17,3 +17,7 @@ npm-debug.log*
 
 # WordPress temporary / log files
 *.log
+
+# PDFs
+*.pdf
+Readme.pdf
