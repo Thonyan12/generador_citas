@@ -4,7 +4,7 @@
  * Plugin URI: https://biblioteca.utmachala.edu.ec
  * Description: Genera citas bibliográficas en formatos académicos (APA 7, IEEE, Vancouver, Chicago 18 - Notes&Bibliography y Author-Date) usando DOI, ISBN, ISSN, URL o de forma manual.
  * Version: 1.2.1
- * Author: Anthony Lima
+ * Author: Thonyan12
  * License: GPL2
  *
  * CHANGELOG v1.2.0 (auditoría de conformidad normativa):
